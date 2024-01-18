@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TiggersMVVM_MCLG.Vistas.Categoria">
+             x:Class="TiggersMVVM_MCLG.Vistas.Categoria"
+             xmlns:disparador ="clr-namespace:TiggersMVVM_MCLG.Trigger.Tcategoria">
     <Grid RowDefinitions="auto,*"
           BackgroundColor="White">
         <StackLayout HeightRequest="180"
@@ -16,7 +17,8 @@
                    FontAttributes="Bold"
                    TextColor="#8D8D8D"
                    />
-            <CollectionView ItemsSource="{Binding ListaCategorias}">
+            <CollectionView ItemsSource="{Binding ListaCategorias}"
+                            x:Name="listacategoria">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="5"
                                        Orientation="Horizontal"/>
@@ -55,11 +57,31 @@
                                                TextColor="{Binding textColor}"/>
                                     </StackLayout>
                                 </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ProcesoSimpSeleccionar,
+                                        Source={x:Reference listacategoria}}" CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
                             </Frame>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
+        <Image Grid.Column="1" VerticalOptions="CenterAndExpand" HeightRequest="250"
+               Source="{Binding Imagen}">
+            <Image.Triggers>
+                <MultiTrigger TargetType="Image">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding ActivadorAnimacionImg}" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.EnterActions>
+                        <disparador:Timagen activacion="True"/>
+                    </MultiTrigger.EnterActions>
+                    <MultiTrigger.ExitActions>
+                        <disparador:Timagen activacion="True"/>
+                    </MultiTrigger.ExitActions>
+                </MultiTrigger>
+            </Image.Triggers>
+        </Image>
     </Grid>
 </ContentPage>
