@@ -56,19 +56,21 @@
                                                VerticalOptions="Start"
                                                TextColor="{Binding textColor}"/>
                                     </StackLayout>
+                                    
                                 </Grid>
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.ProcesoSimpSeleccionar,
                                         Source={x:Reference listacategoria}}" CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
+                            
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
-        <Image Grid.Column="1" VerticalOptions="CenterAndExpand" HeightRequest="250"
-               Source="{Binding Imagen}">
+        <Image Grid.Row="1" VerticalOptions="CenterAndExpand" HeightRequest="250"
+                                        Source="{Binding Imagen}">
             <Image.Triggers>
                 <MultiTrigger TargetType="Image">
                     <MultiTrigger.Conditions>
